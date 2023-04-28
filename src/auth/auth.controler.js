@@ -5,7 +5,9 @@ const AuthService = require('./auth.service');
 
 const register = safeControllerWrapper(async (req,res) => {
     const payload = req.body;
+    console.log(payload)
 const registered = await UserService.createUser(payload);
+
 return res.json({ registered });
 })
 const login =safeControllerWrapper( async (req,res) => {

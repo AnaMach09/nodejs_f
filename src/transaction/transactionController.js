@@ -6,13 +6,9 @@ const debit = async (req, res) => {
   const amount = parseFloat(req.params.amount);
 
   const user = await User.findByPk(userId);
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
+  if (!user) throw new ApiError(StatusCodes.USER_NOT_FOUND);
 
-  if (amount <= 0) {
-    return res.status(400).json({ message: 'Invalid amount' });
-  }
+  if (amount <= 0) throw new ApiError(StatusCodes.INVALID_AMOUNT);
 
   await user.update({ balance: parseFloat(user.balance) + amount });
 
